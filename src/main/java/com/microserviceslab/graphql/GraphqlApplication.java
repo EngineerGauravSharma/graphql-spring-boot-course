@@ -35,7 +35,7 @@ public class GraphqlApplication {
 	public ConnectionFactoryInitializer connectionFactoryInitializer(ConnectionFactory factory) {
 		ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
 		initializer.setConnectionFactory(factory);
-		ResourceDatabasePopulator populator = new ResourceDatabasePopulator(new ClassPathResource("schema.sql"));
+		ResourceDatabasePopulator populator = new ResourceDatabasePopulator(new ClassPathResource("schema.sql"), new ClassPathResource("data.sql"));
 		initializer.setDatabasePopulator(populator);
 		return initializer;
 	}
