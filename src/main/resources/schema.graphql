@@ -1,0 +1,11 @@
+type Query{
+	getBook(id:Int):Book
+	getBooks:[Book]
+}
+
+type Book {
+	id:Int
+	name:String
+	pages:Int
+}
+

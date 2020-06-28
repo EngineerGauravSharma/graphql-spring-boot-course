@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.microserviceslab.graphql.model.Book;
 
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -23,5 +24,9 @@ public class BookRepository {
 	
 	public Mono<Book> getBook(int id) {
 		return databaseClient.select().from(Book.class).matching(Criteria.where("id").is(id)).fetch().one();
+	}
+	
+	public Flux<Book> getBooks() {
+		return databaseClient.select().from(Book.class).fetch().all();
 	}
 }
