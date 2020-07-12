@@ -4,6 +4,7 @@
 package com.microserviceslab.graphql.service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,20 @@ public class BookService {
 	
 	public DataFetcher<CompletableFuture<Book>> getBook() {
 		return env -> {
-			int bookId = env.getArgument("id");
-			return bookRepository.getBook(bookId).toFuture();
+			String bookId = env.getArgument("id");
+			return bookRepository.getBook(UUID.fromString(bookId)).toFuture();
 		};
 	}
 	
 	public DataFetcher<CompletableFuture<List<Book>>> getBooks() {
 		return env -> bookRepository.getBooks().collectList().toFuture();
+	}
+	
+	public DataFetcher<CompletableFuture<String>> createBook() {
+		return env -> {
+			String name = env.getArgument("name");
+			int pages = env.getArgument("pages");
+			return bookRepository.createBook(new Book(name, pages)).map(Object::toString).toFuture();
+		};
 	}
 }

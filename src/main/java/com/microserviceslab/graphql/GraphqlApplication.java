@@ -35,7 +35,7 @@ public class GraphqlApplication {
 	public ConnectionFactoryInitializer connectionFactoryInitializer(ConnectionFactory factory) {
 		ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
 		initializer.setConnectionFactory(factory);
-		ResourceDatabasePopulator populator = new ResourceDatabasePopulator(new ClassPathResource("schema.sql"), new ClassPathResource("data.sql"));
+		ResourceDatabasePopulator populator = new ResourceDatabasePopulator(new ClassPathResource("schema.sql"));
 		initializer.setDatabasePopulator(populator);
 		return initializer;
 	}
@@ -49,6 +49,7 @@ public class GraphqlApplication {
 		RuntimeWiring runtimeWiring = RuntimeWiring.newRuntimeWiring()
 		.type(TypeRuntimeWiring.newTypeWiring("Query").dataFetcher("getBook", bookService.getBook()))
 		.type(TypeRuntimeWiring.newTypeWiring("Query").dataFetcher("getBooks", bookService.getBooks()))
+		.type(TypeRuntimeWiring.newTypeWiring("Mutation").dataFetcher("createBook", bookService.createBook()))
 		.build();
 		
 		SchemaGenerator generator = new SchemaGenerator();

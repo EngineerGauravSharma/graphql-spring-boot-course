@@ -3,6 +3,8 @@
  */
 package com.microserviceslab.graphql.model;
 
+import java.util.UUID;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -13,7 +15,7 @@ import org.springframework.data.relational.core.mapping.Table;
 public class Book {
 	
 	@Id
-	private int id;
+	private UUID id;
 	private String name;
 	private int pages;
 	
@@ -24,12 +26,14 @@ public class Book {
 		this.pages = pages;
 	}
 	
-	public int getId() {
+	public UUID getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(UUID id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
