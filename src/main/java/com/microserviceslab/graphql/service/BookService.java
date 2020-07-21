@@ -23,6 +23,8 @@ public class BookService {
 	
 	@Autowired
 	private BookRepository bookRepository;
+	@Autowired
+	private AuthorService authorService;
 	
 	public DataFetcher<CompletableFuture<Book>> getBook() {
 		return env -> {
@@ -37,9 +39,16 @@ public class BookService {
 	
 	public DataFetcher<CompletableFuture<String>> createBook() {
 		return env -> {
-			String name = env.getArgument("name");
+			String bookName = env.getArgument("bookName");
+			String authorName = env.getArgument("authorName");
+			
 			int pages = env.getArgument("pages");
-			return bookRepository.createBook(new Book(name, pages)).map(Object::toString).toFuture();
+			int age = env.getArgument("age");
+			
+			return bookRepository.createBook(new Book(bookName, pages)).flatMap(
+					bookId -> authorService.createAuthor(authorName, age, bookId)
+					.map(authorId -> bookId.toString()))
+			.toFuture();
 		};
 	}
 }
