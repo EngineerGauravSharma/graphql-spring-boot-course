@@ -10,6 +10,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.r2dbc.connectionfactory.init.ConnectionFactoryInitializer;
 import org.springframework.data.r2dbc.connectionfactory.init.ResourceDatabasePopulator;
 
+import com.microserviceslab.graphql.service.AuthorService;
 import com.microserviceslab.graphql.service.BookService;
 
 import graphql.GraphQL;
@@ -26,6 +27,8 @@ public class GraphqlApplication {
 
 	@Autowired
 	private BookService bookService;
+	@Autowired
+	private AuthorService authorService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(GraphqlApplication.class, args);
@@ -50,6 +53,7 @@ public class GraphqlApplication {
 		.type(TypeRuntimeWiring.newTypeWiring("Query").dataFetcher("getBook", bookService.getBook()))
 		.type(TypeRuntimeWiring.newTypeWiring("Query").dataFetcher("getBooks", bookService.getBooks()))
 		.type(TypeRuntimeWiring.newTypeWiring("Mutation").dataFetcher("createBook", bookService.createBook()))
+		.type(TypeRuntimeWiring.newTypeWiring("Book").dataFetcher("author", authorService.authorDataFetcher()))
 		.build();
 		
 		SchemaGenerator generator = new SchemaGenerator();
