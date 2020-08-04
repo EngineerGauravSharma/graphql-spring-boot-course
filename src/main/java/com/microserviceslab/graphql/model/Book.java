@@ -7,6 +7,8 @@ import java.util.UUID;
 
 import org.springframework.data.relational.core.mapping.Table;
 
+import com.microserviceslab.graphql.constant.Category;
+
 /**
  * @author Gaurav Sharma
  */
@@ -16,6 +18,7 @@ public class Book {
 	private UUID id;
 	private String name;
 	private int pages;
+	private Category category;
 	
 	public Book() { }
 
@@ -43,5 +46,13 @@ public class Book {
 	}
 	public void setPages(int pages) {
 		this.pages = pages;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 }

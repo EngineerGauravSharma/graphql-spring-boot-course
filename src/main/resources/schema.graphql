@@ -4,7 +4,7 @@ type Query{
 }
 
 type Mutation{
-	createBook(bookName:String, pages:Int, authorName:String, age:Int):String
+	createBook(bookName:String, pages:Int, category:Category, authorName:String, age:Int):String
 }
 
 type Book {
@@ -12,10 +12,17 @@ type Book {
 	name:String
 	pages:Int
 	author:Author
+	category:Category
 }
 
 type Author {
 	id:String
 	name:String
 	age:Int
+}
+
+enum Category {
+	HORROR,
+	COMEDY,
+	FANTASY
 }
