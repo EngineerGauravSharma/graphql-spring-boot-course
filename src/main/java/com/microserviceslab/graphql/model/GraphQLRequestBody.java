@@ -3,7 +3,9 @@
  */
 package com.microserviceslab.graphql.model;
 
+import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Gaurav Sharma
@@ -28,7 +30,7 @@ public class GraphQLRequestBody {
 		this.operationName = operationName;
 	}
 	public Map<String, Object> getVariables() {
-		return variables;
+		return Objects.requireNonNullElseGet(variables, Collections::emptyMap);
 	}
 	public void setVariables(Map<String, Object> variables) {
 		this.variables = variables;
