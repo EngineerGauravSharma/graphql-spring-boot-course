@@ -1,5 +1,5 @@
 type Query{
-	getBook(id:String):Book
+	getBook(id:String!):Book
 	getBooks:[Book]
 }
 
