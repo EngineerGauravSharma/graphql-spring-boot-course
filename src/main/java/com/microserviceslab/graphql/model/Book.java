@@ -5,6 +5,7 @@ package com.microserviceslab.graphql.model;
 
 import java.util.UUID;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 import com.microserviceslab.graphql.constant.Category;
@@ -15,6 +16,7 @@ import com.microserviceslab.graphql.constant.Category;
 @Table("books")
 public class Book {
 	
+	@Id
 	private UUID id;
 	private String name;
 	private int pages;

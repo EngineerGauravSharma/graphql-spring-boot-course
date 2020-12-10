@@ -6,8 +6,9 @@ package com.microserviceslab.graphql.repository;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.r2dbc.core.DatabaseClient;
+import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.data.relational.core.query.Criteria;
+import org.springframework.data.relational.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.microserviceslab.graphql.model.Book;
@@ -22,19 +23,19 @@ import reactor.core.publisher.Mono;
 public class BookRepository {
 	
 	@Autowired
-	private DatabaseClient databaseClient;
+	private R2dbcEntityTemplate template;
 	
 	public Mono<Book> getBook(UUID id) {
-		return databaseClient.select().from(Book.class).matching(Criteria.where("id").is(id)).fetch().one();
+		return template.select(Book.class).matching(Query.query(Criteria.where("id").is(id))).one();
 	}
 	
 	public Flux<Book> getBooks() {
-		return databaseClient.select().from(Book.class).fetch().all();
+		return template.select(Book.class).all();
 	}
 
 	public Mono<UUID> createBook(Book book) {
 		UUID bookId = UUID.randomUUID();
 		book.setId(bookId);
-		return databaseClient.insert().into(Book.class).using(book).then().thenReturn(bookId);
+		return template.insert(Book.class).using(book).thenReturn(bookId);
 	}
 }
