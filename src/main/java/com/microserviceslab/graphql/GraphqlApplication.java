@@ -34,7 +34,11 @@ public class GraphqlApplication {
 		SpringApplication.run(GraphqlApplication.class, args);
 	}
 
-	@Bean
+	/**
+	 * No more needed as the schema.sql file is now automatically getting picked up
+	 * Keeping this method here for reference purpose
+	 */
+	//@Bean
 	public ConnectionFactoryInitializer connectionFactoryInitializer(ConnectionFactory factory) {
 		ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
 		initializer.setConnectionFactory(factory);
